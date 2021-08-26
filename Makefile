@@ -10,8 +10,8 @@ SYSROOT ?= $(CURDIR)/sysroot
 INSTALL_DIR ?= /usr/local
 # single or posix
 THREAD_MODEL ?= single
-# dlmalloc or none
-MALLOC_IMPL ?= dlmalloc
+# dlmalloc or none. MS-Wasm assumes "none".
+MALLOC_IMPL ?= none
 # yes or no
 BUILD_LIBC_TOP_HALF ?= yes
 # The directory where we're store intermediate artifacts.
