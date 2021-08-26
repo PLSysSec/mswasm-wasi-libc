@@ -42,7 +42,7 @@ _Static_assert(_Alignof(int32_t) == 4, "non-wasi data layout");
 _Static_assert(_Alignof(uint32_t) == 4, "non-wasi data layout");
 _Static_assert(_Alignof(int64_t) == 8, "non-wasi data layout");
 _Static_assert(_Alignof(uint64_t) == 8, "non-wasi data layout");
-_Static_assert(_Alignof(void*) == 4, "non-wasi data layout");
+_Static_assert(_Alignof(void*) == 8, "non-mswasm-wasi data layout");
 
 #ifdef __cplusplus
 extern "C" {
@@ -685,10 +685,10 @@ typedef struct __wasi_iovec_t {
 
 } __wasi_iovec_t;
 
-_Static_assert(sizeof(__wasi_iovec_t) == 8, "witx calculated size");
-_Static_assert(_Alignof(__wasi_iovec_t) == 4, "witx calculated align");
+_Static_assert(sizeof(__wasi_iovec_t) == 16, "witx calculated size");
+_Static_assert(_Alignof(__wasi_iovec_t) == 8, "witx calculated align");
 _Static_assert(offsetof(__wasi_iovec_t, buf) == 0, "witx calculated offset");
-_Static_assert(offsetof(__wasi_iovec_t, buf_len) == 4, "witx calculated offset");
+_Static_assert(offsetof(__wasi_iovec_t, buf_len) == 8, "witx calculated offset");
 
 /**
  * A region of memory for scatter/gather writes.
@@ -706,10 +706,10 @@ typedef struct __wasi_ciovec_t {
 
 } __wasi_ciovec_t;
 
-_Static_assert(sizeof(__wasi_ciovec_t) == 8, "witx calculated size");
-_Static_assert(_Alignof(__wasi_ciovec_t) == 4, "witx calculated align");
+_Static_assert(sizeof(__wasi_ciovec_t) == 16, "witx calculated size");
+_Static_assert(_Alignof(__wasi_ciovec_t) == 8, "witx calculated align");
 _Static_assert(offsetof(__wasi_ciovec_t, buf) == 0, "witx calculated offset");
-_Static_assert(offsetof(__wasi_ciovec_t, buf_len) == 4, "witx calculated offset");
+_Static_assert(offsetof(__wasi_ciovec_t, buf_len) == 8, "witx calculated offset");
 
 /**
  * Relative offset within a file.
