@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: BSD-2-Clause
 
+#if 0
+
 #include <wasi/api.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -60,3 +62,5 @@ int fcntl(int fildes, int cmd, ...) {
       return -1;
   }
 }
+
+#endif

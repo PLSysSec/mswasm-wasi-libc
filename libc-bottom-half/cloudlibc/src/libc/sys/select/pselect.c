@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: BSD-2-Clause
 
+#if 0
+
 #include <common/time.h>
 
 #include <sys/select.h>
@@ -44,7 +46,7 @@ int pselect(int nfds, fd_set *restrict readfds, fd_set *restrict writefds,
     if (fd < nfds) {
       __wasi_subscription_t *subscription = &subscriptions[nsubscriptions++];
       *subscription = (__wasi_subscription_t){
-          .userdata = fd,
+          .userdata = (void*)(int64_t)fd,
           .u.tag = __WASI_EVENTTYPE_FD_READ,
           .u.u.fd_read.file_descriptor = fd,
       };
@@ -57,7 +59,7 @@ int pselect(int nfds, fd_set *restrict readfds, fd_set *restrict writefds,
     if (fd < nfds) {
       __wasi_subscription_t *subscription = &subscriptions[nsubscriptions++];
       *subscription = (__wasi_subscription_t){
-          .userdata = fd,
+          .userdata = (void*)(int64_t)fd,
           .u.tag = __WASI_EVENTTYPE_FD_WRITE,
           .u.u.fd_write.file_descriptor = fd,
       };
@@ -116,10 +118,12 @@ int pselect(int nfds, fd_set *restrict readfds, fd_set *restrict writefds,
   for (size_t i = 0; i < nevents; ++i) {
     const __wasi_event_t *event = &events[i];
     if (event->type == __WASI_EVENTTYPE_FD_READ) {
-      readfds->__fds[readfds->__nfds++] = event->userdata;
+      readfds->__fds[readfds->__nfds++] = (uint64_t)event->userdata;
     } else if (event->type == __WASI_EVENTTYPE_FD_WRITE) {
-      writefds->__fds[writefds->__nfds++] = event->userdata;
+      writefds->__fds[writefds->__nfds++] = (uint64_t)event->userdata;
     }
   }
   return readfds->__nfds + writefds->__nfds;
 }
+
+#endif

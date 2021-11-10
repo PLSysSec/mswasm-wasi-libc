@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: BSD-2-Clause
 
+#if 0
+
 #include <wasi/api.h>
 #include <errno.h>
 #include <poll.h>
@@ -20,7 +22,7 @@ int poll(struct pollfd *fds, size_t nfds, int timeout) {
     if ((pollfd->events & POLLRDNORM) != 0) {
       __wasi_subscription_t *subscription = &subscriptions[nsubscriptions++];
       *subscription = (__wasi_subscription_t){
-          .userdata = (uintptr_t)pollfd,
+          .userdata = pollfd,
           .u.tag = __WASI_EVENTTYPE_FD_READ,
           .u.u.fd_read.file_descriptor = pollfd->fd,
       };
@@ -29,7 +31,7 @@ int poll(struct pollfd *fds, size_t nfds, int timeout) {
     if ((pollfd->events & POLLWRNORM) != 0) {
       __wasi_subscription_t *subscription = &subscriptions[nsubscriptions++];
       *subscription = (__wasi_subscription_t){
-          .userdata = (uintptr_t)pollfd,
+          .userdata = pollfd,
           .u.tag = __WASI_EVENTTYPE_FD_WRITE,
           .u.u.fd_write.file_descriptor = pollfd->fd,
       };
@@ -88,7 +90,7 @@ int poll(struct pollfd *fds, size_t nfds, int timeout) {
     const __wasi_event_t *event = &events[i];
     if (event->type == __WASI_EVENTTYPE_FD_READ ||
         event->type == __WASI_EVENTTYPE_FD_WRITE) {
-      struct pollfd *pollfd = (struct pollfd *)(uintptr_t)event->userdata;
+      struct pollfd *pollfd = (struct pollfd *)event->userdata;
       if (event->error == __WASI_ERRNO_BADF) {
         // Invalid file descriptor.
         pollfd->revents |= POLLNVAL;
@@ -127,3 +129,5 @@ int poll(struct pollfd *fds, size_t nfds, int timeout) {
   }
   return retval;
 }
+
+#endif

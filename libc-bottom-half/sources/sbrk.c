@@ -3,6 +3,8 @@
 #include <errno.h>
 #include <__macro_PAGESIZE.h>
 
+#if 0
+
 // Bare-bones implementation of sbrk.
 void *sbrk(intptr_t increment) {
     // sbrk(0) returns the current memory size.
@@ -30,3 +32,5 @@ void *sbrk(intptr_t increment) {
 
     return (void *)(old * PAGESIZE);
 }
+
+#endif

@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: BSD-2-Clause
 
+#if 0
+
 #include <sys/ioctl.h>
 
 #include <wasi/api.h>
@@ -86,3 +88,5 @@ int ioctl(int fildes, int request, ...) {
       return -1;
   }
 }
+
+#endif
