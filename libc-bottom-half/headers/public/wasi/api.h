@@ -9,6 +9,9 @@
  * Modifications to this file will cause CI to fail, the code generator tool
  * must be modified to change this file.
  *
+ * MS-Wasm note: we have made manual modifications to this file, in ways that
+ * the autogenerator can't handle. Regenerating this file will break things.
+ *
  * @file
  * This file describes the [WASI] interface, consisting of functions, types,
  * and defined values (macros).
@@ -744,7 +747,7 @@ _Static_assert(_Alignof(__wasi_whence_t) == 1, "witx calculated align");
 
 /**
  * A reference to the offset of a directory entry.
- * 
+ *
  * The value 0 signifies the start of the directory.
  */
 typedef uint64_t __wasi_dircookie_t;
@@ -1091,7 +1094,7 @@ _Static_assert(offsetof(__wasi_filestat_t, ctim) == 56, "witx calculated offset"
  * User-provided value that may be attached to objects that is retained when
  * extracted from the implementation.
  */
-typedef uint64_t __wasi_userdata_t;
+typedef void* __wasi_userdata_t;
 
 _Static_assert(sizeof(__wasi_userdata_t) == 8, "witx calculated size");
 _Static_assert(_Alignof(__wasi_userdata_t) == 8, "witx calculated align");
