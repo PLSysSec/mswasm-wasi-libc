@@ -3,7 +3,7 @@
 WASM_CC ?= clang
 WASM_NM ?= $(patsubst %clang,%llvm-nm,$(WASM_CC))
 WASM_AR ?= $(patsubst %clang,%llvm-ar,$(WASM_CC))
-WASM_CFLAGS ?= -O2 -DNDEBUG
+WASM_CFLAGS ?= -O2 #-mllvm -print-before-all -mllvm -debug
 # The directory where we build the sysroot.
 SYSROOT ?= $(CURDIR)/sysroot
 # A directory to install to for "make install".
@@ -199,7 +199,10 @@ CFLAGS += -Wall -Wextra -Werror \
   -Wno-missing-braces \
   -Wno-ignored-pragmas \
   -Wno-unused-but-set-variable \
-  -Wno-unknown-warning-option
+  -Wno-unknown-warning-option \
+  -Wno-int-to-void-pointer-cast \
+  -Wno-void-pointer-to-int-cast \
+  -Wno-pointer-to-int-cast
 
 # Configure support for threads.
 ifeq ($(THREAD_MODEL), single)
