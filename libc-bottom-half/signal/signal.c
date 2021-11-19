@@ -109,11 +109,11 @@ int raise(int sig) {
 
     sighandler_t func = handlers[sig];
 
-    if (func == NULL) {
-        default_handlers[sig](sig);
-    } else {
-        func(sig);
-    }
+    // if (func == NULL) {
+    //     default_handlers[sig](sig);
+    // } else {
+    //     func(sig);
+    // }
 
     return 0;
 }

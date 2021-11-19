@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: BSD-2-Clause
 
+#if 0
+
 #include <wasi/api.h>
 #include <wasi/libc.h>
 #include <wasi/libc-nocwd.h>
@@ -143,3 +145,5 @@ bad:
   close(fd);
   return -1;
 }
+
+#endif

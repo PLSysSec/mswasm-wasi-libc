@@ -3,7 +3,7 @@
 WASM_CC ?= clang
 WASM_NM ?= $(patsubst %clang,%llvm-nm,$(WASM_CC))
 WASM_AR ?= $(patsubst %clang,%llvm-ar,$(WASM_CC))
-WASM_CFLAGS ?= -O2 -v #-mllvm -print-before-all -mllvm -debug
+WASM_CFLAGS ?= -O3 -v #-mllvm -print-before-all -mllvm -debug
 # The directory where we build the sysroot.
 SYSROOT ?= $(CURDIR)/sysroot
 # A directory to install to for "make install".
@@ -135,6 +135,7 @@ LIBC_TOP_HALF_MUSL_SOURCES = \
         malloc/calloc.c \
         malloc/posix_memalign.c \
         malloc/replaced.c \
+        malloc/mswmalloc/aligned_alloc.c \
     ) \
     $(filter-out %/procfdname.c %/syscall.c %/syscall_ret.c %/vdso.c %/version.c, \
                  $(wildcard $(LIBC_TOP_HALF_MUSL_SRC_DIR)/internal/*.c)) \

@@ -78,5 +78,5 @@ static void call(void *p)
 
 int atexit(void (*func)(void))
 {
-	return __cxa_atexit(call, func, 0);
+	return 0; // __cxa_atexit(call, func, 0);
 }

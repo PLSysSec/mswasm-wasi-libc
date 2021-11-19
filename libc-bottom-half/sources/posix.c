@@ -1,6 +1,6 @@
 //! POSIX-like functions supporting absolute path arguments, implemented in
 //! terms of `__wasilibc_find_relpath` and `*at`-style functions.
-
+#if 0
 #include <errno.h>
 #include <dirent.h>
 #include <fcntl.h>
@@ -421,3 +421,4 @@ __wasilibc_rename_newat(const char *from, int todirfd, const char *to)
 
     return __wasilibc_nocwd_renameat(from_dirfd, from_relative_path, todirfd, to);
 }
+#endif
