@@ -1,5 +1,4 @@
 #include "stdio_impl.h"
-#include "stdout.c"
 
 static FILE *volatile dummy_file = 0;
 weak_alias(dummy_file, __stdin_used);
