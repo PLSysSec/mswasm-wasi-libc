@@ -17,9 +17,9 @@ void __stdio_exit(void)
 {
 	FILE *f;
 	// for (f=*__ofl_lock(); f; f=f->next) close_file(f);
-	close_file(__stdin_used);
+	// close_file(__stdin_used);
 	close_file(&__stdout_FILE);
-	close_file(__stderr_used);
+	// close_file(__stderr_used);
 }
 
 weak_alias(__stdio_exit, __stdio_exit_needed);
