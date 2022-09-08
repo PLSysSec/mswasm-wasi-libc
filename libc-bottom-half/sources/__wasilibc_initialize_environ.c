@@ -11,11 +11,12 @@
 /// Statically-initialize it to an invalid pointer value so that we can
 /// detect if it's been explicitly initialized (we can't use `NULL` because
 /// `clearenv` sets it to NULL.
-char **__wasilibc_environ __attribute__((weak)) = (char **)-1;
+char **__wasilibc_environ __attribute__((weak)) = NULL;
+bool __wasilibc_environ_init __attribute__((weak)) = false;
 
 // See the comments in libc-environ.h.
 void __wasilibc_ensure_environ(void) {
-    if (__wasilibc_environ == (char **)-1) {
+    if (__wasilibc_environ_init == false) {
         __wasilibc_initialize_environ();
     }
 }
@@ -35,6 +36,7 @@ void __wasilibc_initialize_environ(void) {
     }
     if (environ_count == 0) {
         __wasilibc_environ = empty_environ;
+        __wasilibc_environ_init = true;
         return;
     }
 
@@ -69,6 +71,7 @@ void __wasilibc_initialize_environ(void) {
     }
 
     __wasilibc_environ = environ_ptrs;
+    __wasilibc_environ_init = true;
     return;
 oserr:
     _Exit(EX_OSERR);
@@ -78,11 +81,12 @@ software:
 
 // See the comments in libc-environ.h.
 void __wasilibc_deinitialize_environ(void) {
-    if (__wasilibc_environ != (char **)-1) {
+    if (__wasilibc_environ) {
         // Let libc-top-half clear the old environment-variable strings.
         clearenv();
         // Set the pointer to the special init value.
-        __wasilibc_environ = (char **)-1;
+        __wasilibc_environ_init = false;
+        //__wasilibc_environ = (char **)-1;
     }
 }
 

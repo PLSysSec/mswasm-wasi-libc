@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <stdbool.h>
 #include <assert.h>
 
 void __SIG_IGN(int sig) {
@@ -119,23 +120,24 @@ int raise(int sig) {
 }
 
 void (*signal(int sig, void (*func)(int)))(int) {
-    assert(SIG_DFL == NULL);
+    assert(false && "not implemented in mswasm-cheri-128");
+    // assert(SIG_DFL == NULL);
 
-    if (sig < 0 || sig >= _NSIG) {
-        errno = EINVAL;
-        return SIG_ERR;
-    }
+    // if (sig < 0 || sig >= _NSIG) {
+    //     errno = EINVAL;
+    //     return SIG_ERR;
+    // }
 
-    if (sig == SIGKILL || sig == SIGSTOP) {
-        errno = EINVAL;
-        return SIG_ERR;
-    }
+    // if (sig == SIGKILL || sig == SIGSTOP) {
+    //     errno = EINVAL;
+    //     return SIG_ERR;
+    // }
 
-    sighandler_t old = handlers[sig];
+    // sighandler_t old = handlers[sig];
 
-    handlers[sig] = func;
+    // handlers[sig] = func;
 
-    return old;
+    // return old;
 }
 
 extern __typeof(signal) bsd_signal __attribute__((weak, alias("signal")));
